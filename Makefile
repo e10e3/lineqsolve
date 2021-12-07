@@ -9,8 +9,11 @@
 CC = gcc
 CFLAGS = -g -O3 -Wall -Wextra
 
-lineqsolve: main.o
+lineqsolve: main.o fractions.o
 	${CC} ${CFLAGS} $^ -o $@
 
 main.o: main.c main.h
+	${CC} -c ${CFLAGS} $^
+
+fractions.o: fractions.c fractions.h
 	${CC} -c ${CFLAGS} $^
