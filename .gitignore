@@ -1,0 +1,6 @@
+# compiled (unliked) files
+*.o
+# Compiled header files
+*.gch
+# the compiled program
+lineqsolve
