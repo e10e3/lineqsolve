@@ -6,8 +6,11 @@
 # $?	List of all dependencies newer than the target
 # $*	The "stem" of an implicit or pattern rule
 
-CC ?= gcc
-Cflags = -g -O3 -Wall -Wextra
+CC = gcc
+CFLAGS = -g -O3 -Wall -Wextra
 
-lineqsolve: main.c
-	${CC} $? ${Cflags} -o $@
+lineqsolve: main.o
+	${CC} ${CFLAGS} $^ -o $@
+
+main.o: main.c main.h
+	${CC} -c ${CFLAGS} $^

@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-// int count_char_in_string(char to_search, char* string)
+#include "main.h"
 
 int number_variables = 0;
 int** values_matrix;
@@ -65,7 +62,7 @@ void gauss_pivot(int** const matrix, const int n_lines, const int n_col) {
 }
 
 int main(const int argc, char* const argv[]) {
-	FILE* input = fopen("matrix.txt", "r");
+	FILE* input = fopen(FILENAME_IN, "r");
 	printf("Reading the file\n");
 
 	char string[256];
