@@ -13,6 +13,6 @@
 
 extern int count_char_in_string(const char, const char*);
 extern void pp_matrix(int** const, const int, const int);
-extern void gauss_pivot(int** const, const int, const int);
+extern void gaussian_elimination(int** const, const int, const int);
 
 #endif /* MAIN_H */

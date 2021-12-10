@@ -19,4 +19,7 @@ extern fraction* multiply_fractions(fraction*, fraction*);
 extern fraction* add_fractions(fraction*, fraction*);
 extern bool simplify_fraction(fraction* fraction);
 
+int get_gcd(const int, const int);
+int gcd(int, int);
+
 #endif /* FRACTIONS_H */

@@ -57,7 +57,7 @@ void pp_matrix(int** const matrix, const int n_lines, const int n_col) {
 	}
 }
 
-void gauss_pivot(int** const matrix, const int n_lines, const int n_col) {
+void gaussian_elimination(int** const matrix, const int n_lines, const int n_col) {
 	pp_matrix(matrix, n_lines, n_col);
 }
 
@@ -87,7 +87,7 @@ int main(const int argc, char* const argv[]) {
 
 	// pp_matrix(values_matrix, number_variables, number_variables + 1);
 	// pp_matrix(&values_matrix[1], 1, number_variables + 1);
-	gauss_pivot(values_matrix, number_variables, number_variables + 1);
+	gaussian_elimination(values_matrix, number_variables, number_variables + 1);
 
 	fclose(input);
 	printf("File closed\n");
