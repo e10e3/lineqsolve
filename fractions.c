@@ -49,6 +49,12 @@ bool simplify_fraction(fraction* fraction) {
 	}
 }
 
+bool are_fractions_equal(fraction* frac1, fraction* frac2) {
+	return (
+			(frac1->numerator == frac2->numerator) &&
+			(frac1->denominator == frac2->denominator) );
+}
+
 /**
  * Prepare the numbers for GCD calculation
  */

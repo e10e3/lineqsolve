@@ -4,3 +4,5 @@
 *.gch
 # the compiled program
 lineqsolve
+# the compiled testing suite
+test

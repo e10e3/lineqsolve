@@ -17,3 +17,9 @@ main.o: main.c main.h
 
 fractions.o: fractions.c fractions.h
 	${CC} -c ${CFLAGS} $^
+
+test: test.o fractions.o
+	${CC} ${CFLAGS} $^ -o $@
+
+test.o: test.c
+	${CC} -c ${CFLAGS} $^
