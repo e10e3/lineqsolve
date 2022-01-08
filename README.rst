@@ -3,6 +3,16 @@ Linear equations solver
 
 See https://en.wikipedia.org/wiki/Gaussian_elimination for Gauss-Jordan's algorithm and its uses for solving systems of linear equations.
 
+Compiling
+---------
+
+Use the ``make`` command to compile the program. The default compiler is gcc.
+
+.. code-block:: bash
+
+   $ make
+   $ ./lineqsolve
+
 Step-by-step method of operations
 ---------------------------------
 
@@ -15,3 +25,8 @@ Input format
 ---------------
 
 In the file ``matrix.txt``, integers coefficiants fo the matrixes separated by a single space (and none at the end the the lines). On each line are the coefficients and the constant, creating at the end one more column than there are lines.
+
+License
+-------
+
+This project is licensed under the GPL v3 or later license.
