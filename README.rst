@@ -1,32 +1,41 @@
 Linear equations solver
 =============================
 
-See https://en.wikipedia.org/wiki/Gaussian_elimination for Gauss-Jordan's algorithm and its uses for solving systems of linear equations.
+See https://en.wikipedia.org/wiki/Gaussian_elimination for Gauss-Jordan's
+algorithm and its uses for solving systems of linear equations.
 
 Compiling
 ---------
 
-Use the ``make`` command to compile the program. The default compiler is gcc.
+Use the ``make`` command to compile the program. The default compiler is GCC.
 
-.. code-block:: bash
+.. code-block:: shell
 
-   $ make
-   $ ./lineqsolve
-
-Step-by-step method of operations
----------------------------------
-
-1. Read the data
-2. Analyse and allocate the coefficients
-3. Apply the reduction method
-4. Display the results (with pretty-print?)
+	$ make
+	$ ./lineqsolve
 
 Input format
 ---------------
 
-In the file ``matrix.txt``, integers coefficiants fo the matrixes separated by a single space (and none at the end the the lines). On each line are the coefficients and the constant, creating at the end one more column than there are lines.
+In the file ``matrix.txt`` are entered the integers coefficients of the matrixes
+separated by a single space (and none at the end of the lines). On each line are
+the coefficients and the constant (result), creating in the end one more column
+than there are lines.
 
 License
--------
+---------
 
-This project is licensed under the GPL v3 or later license.
+Copyright © 2021  e10e3
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see https://www.gnu.org/licenses/.
