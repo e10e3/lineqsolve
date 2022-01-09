@@ -22,6 +22,18 @@ separated by a single space (and none at the end of the lines). On each line are
 the coefficients and the constant (result), creating in the end one more column
 than there are lines.
 
+The following system of equations
+
+.. math::
+
+	 x + 2y &= 3\\
+	4x + 5y &= 6
+
+would be represented in the text file as::
+
+	1 2 3
+	4 5 6
+
 License
 ---------
 
