@@ -130,7 +130,7 @@ void print_results(fraction** const matrix, const int n_lines, const int n_col) 
 	for (int i = 0; i < n_lines; i++) {
 		fraction var_i_val = *multiply_fractions(&matrix[i][n_col - 1], invert_fraction(&matrix[i][i]));
 		float var_i_approx = var_i_val.numerator * 1.0 / var_i_val.denominator;
-		printf("The value of the variable %d is: %f (%d/%d).\n", i, var_i_approx, var_i_val.numerator, var_i_val.denominator);
+		printf("The value of the variable %d is: %g (%d/%d).\n", i + 1, var_i_approx, var_i_val.numerator, var_i_val.denominator);
 	}
 }
 
