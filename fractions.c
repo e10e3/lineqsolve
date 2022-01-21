@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdbool.h>
 #include "fractions.h"
 
 fraction* multiply_fractions(const fraction* const fraction1, const fraction* const fraction2) {

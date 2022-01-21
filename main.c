@@ -1,5 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "main.h"
+#include "fractions.h"
 
+#define FILENAME_IN "matrix.txt"
 int number_variables = 0;
 fraction** values_matrix;
 
