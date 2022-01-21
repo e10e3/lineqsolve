@@ -5,6 +5,8 @@
 #ifndef FRACTIONS_H
 #define FRACTIONS_H
 
+#include <stdbool.h>
+
 struct fraction {
 	int numerator;
 	int denominator;

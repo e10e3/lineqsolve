@@ -5,6 +5,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#include "fractions.h"
+
 extern int count_char_in_string(const char, const char*);
 extern void pp_matrix(fraction** const, const int, const int);
 int find_greatest_value_in_column(fraction** const, const int, const int);
