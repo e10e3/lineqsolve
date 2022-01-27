@@ -4,9 +4,9 @@
 #include "main.h"
 #include "fractions.h"
 
-#define FILENAME_IN "matrix.txt"
 int number_variables = 0;
 fraction** values_matrix;
+#define DEFAULT_FILENAME_IN "matrix.txt"
 
 int count_char_in_string(const char to_search, const char* string) {
 	int count = 0;
@@ -140,11 +140,26 @@ void print_results(fraction** const matrix, const int n_lines, const int n_col) 
 }
 
 int main(const int argc, char* const argv[]) {
+
+	char* input_filename = "";
+
 	if (argc == 0) {
-		fprintf(stderr, "ERROR: argc should not be 0.\n");
-		exit(1);
+		fprintf(stderr, "ERROR: number of arguments should not be 0.\n");
+		exit(EXIT_FAILURE);
+	} else if (argc == 1) {
+		input_filename = DEFAULT_FILENAME_IN;
+	} else if(argc == 2) {
+		input_filename = argv[1];
+	} else {
+		fprintf(stderr, "ERROR: only 1 or 2 arguments expected.\n");
+		exit(EXIT_FAILURE);
 	}
-	FILE* input = fopen(FILENAME_IN, "r");
+
+	FILE* input = fopen(input_filename, "r");
+	if (input == NULL) {
+		fprintf(stderr, "ERROR: could not open file %s.\n", input_filename);
+		exit(EXIT_FAILURE);
+	}
 	fprintf(stderr, "Reading the file\n");
 
 	char string[256];
@@ -167,6 +182,9 @@ int main(const int argc, char* const argv[]) {
 		}
 	}
 
+	fclose(input);
+	fprintf(stderr, "File closed\n");
+
 	printf("Initial matrix:");
 	pp_matrix(values_matrix, number_variables, number_variables + 1);
 	// pp_matrix(&values_matrix[1], 1, number_variables + 1);
@@ -176,13 +194,11 @@ int main(const int argc, char* const argv[]) {
 
 	print_results(values_matrix, number_variables, number_variables + 1);
 
-	fclose(input);
-	fprintf(stderr, "File closed\n");
-
 	for (int i = 0; i < number_variables; i++) {
 		free(values_matrix[i]);
 	}
 	free(values_matrix);
+
 	return EXIT_SUCCESS;
 	
 }
