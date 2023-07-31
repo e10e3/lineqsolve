@@ -12,11 +12,30 @@ int main() {
 }
 
 void test_addition() {
-	fraction frac1 = {4, 2};
-	fraction frac2 = {2, 3};
-	fraction* result = add_fractions(&frac1, &frac2);
-	fraction theorical = {8, 3};
-	assert(are_fractions_equal(result, &theorical));
+	{
+		/* Standard addition */
+		fraction frac1 = {4, 2};
+		fraction frac2 = {2, 3};
+		fraction* result = add_fractions(&frac1, &frac2);
+		fraction theorical = {8, 3};
+		assert(are_fractions_equal(result, &theorical));
+	}
+	{
+		/* Adding zero */
+		fraction frac1 = {0, 5};
+		fraction frac2 = {2, 7};
+		fraction* result = add_fractions(&frac1, &frac2);
+		fraction theorical = {2, 7};
+		assert(are_fractions_equal(result, &theorical));
+	}
+	{
+		/* Adding whole numbers */
+		fraction frac1 = {5, 1};
+		fraction frac2 = {13, 1};
+		fraction* result = add_fractions(&frac1, &frac2);
+		fraction theorical = {18, 1};
+		assert(are_fractions_equal(result, &theorical));
+	}
 }
 
 void test_simplification() {
