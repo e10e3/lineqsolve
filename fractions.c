@@ -98,7 +98,8 @@ fraction* invert_fraction(fraction* frac) {
 int get_gcd(const int first, const int second) {
 	return gcd(
 			(first > 0 ? first : -first),
-			(second > 0 ? second : second));
+			(second > 0 ? second : -second)
+		);
 }
 
 /**
