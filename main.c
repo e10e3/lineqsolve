@@ -4,8 +4,6 @@
 #include "main.h"
 #include "fractions.h"
 
-int number_variables = 0;
-fraction** values_matrix;
 #define DEFAULT_FILENAME_IN "matrix.txt"
 
 int count_char_in_string(const char to_search, const char* string) {
@@ -141,6 +139,8 @@ void print_results(fraction** const matrix, const int n_lines, const int n_col) 
 
 int main(const int argc, char* const argv[]) {
 
+	int number_variables = 0;
+	fraction** values_matrix = {0};
 	char* input_filename = "";
 
 	if (argc == 0) {
@@ -187,7 +187,6 @@ int main(const int argc, char* const argv[]) {
 
 	printf("Initial matrix:");
 	pp_matrix(values_matrix, number_variables, number_variables + 1);
-	// pp_matrix(&values_matrix[1], 1, number_variables + 1);
 	gaussian_elimination(values_matrix, number_variables, number_variables + 1);
 	printf("\nFinal matrix:");
 	pp_matrix(values_matrix, number_variables, number_variables + 1);
@@ -200,5 +199,4 @@ int main(const int argc, char* const argv[]) {
 	free(values_matrix);
 
 	return EXIT_SUCCESS;
-	
 }
