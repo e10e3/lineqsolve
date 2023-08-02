@@ -14,15 +14,18 @@ struct fraction {
 
 typedef struct fraction fraction;
 
-fraction *multiply_fractions(const fraction *const, const fraction *const);
-fraction *add_fractions(const fraction *const, const fraction *const);
-fraction *substract_fractions(const fraction *const, const fraction *const);
-bool simplify_fraction(fraction *);
-fraction *invert_fraction(fraction *);
+void multiply_fractions(const fraction *const, const fraction *const,
+                        fraction *const);
+void add_fractions(const fraction *const, const fraction *const,
+                   fraction *const);
+void substract_fractions(const fraction *const, const fraction *const,
+                         fraction *const);
 int compare_fractions(const fraction *const, const fraction *const);
+bool simplify_fraction(fraction *const);
+void invert_fraction(const fraction *const, fraction *const);
 
 /* Internal functions */
-int get_gcd(const int, const int);
-int gcd(int, int);
+int gcd(const int, const int);
+int compute_gcd(int, int);
 
 #endif /* FRACTIONS_H */

@@ -1,7 +1,5 @@
 #include "main.h"
 
-#include "fractions.h"
-
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -102,7 +100,7 @@ substract_lines_in_place(fraction *const line1, fraction *const line2,
                          const int n_col)
 {
 	for (int i = 0; i < n_col; i++) {
-		line1[i] = *substract_fractions(line1 + i, line2 + i);
+		substract_fractions(line1 + i, line2 + i, &line1[i]);
 	}
 }
 
@@ -111,7 +109,7 @@ multiply_line_in_place(fraction *const line, const fraction factor,
                        const int n_col)
 {
 	for (int i = 0; i < n_col; i++) {
-		line[i] = *multiply_fractions(line + i, &factor);
+		multiply_fractions(line + i, &factor, &line[i]);
 	}
 }
 
@@ -132,7 +130,8 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 			matrix[line_pivot] = temp_line;
 		}
 
-		fraction inverse_of_pivot = *invert_fraction(&matrix[i][i]);
+		fraction inverse_of_pivot = {0};
+		invert_fraction(&matrix[i][i], &inverse_of_pivot);
 
 		fraction *substracted_line =
 		    (fraction *)malloc(n_col * sizeof(fraction));
@@ -142,8 +141,9 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 				continue;
 			}
 			/* Determine the factor */
-			fraction simplification_factor = *multiply_fractions(
-			    &matrix[j][i], &inverse_of_pivot);
+			fraction simplification_factor = {0};
+			multiply_fractions(&matrix[j][i], &inverse_of_pivot,
+			                   &simplification_factor);
 			/* Pre-multiply (a copy of!) the pivot's line */
 			substracted_line = memcpy(substracted_line, matrix[i],
 			                          n_col * sizeof(fraction));
@@ -174,8 +174,11 @@ void
 print_results(fraction **const matrix, const int n_lines, const int n_col)
 {
 	for (int i = 0; i < n_lines; i++) {
-		fraction var_i_val = *multiply_fractions(
-		    &matrix[i][n_col - 1], invert_fraction(&matrix[i][i]));
+		fraction inverted_pivot = {0};
+		invert_fraction(&matrix[i][i], &inverted_pivot);
+		fraction var_i_val = {0};
+		multiply_fractions(&matrix[i][n_col - 1], &inverted_pivot,
+		                   &var_i_val);
 		float var_i_approx =
 		    var_i_val.numerator * 1.0 / var_i_val.denominator;
 		printf("The value of the variable %d is: %g (%d/%d).\n", i + 1,

@@ -2,43 +2,41 @@
 
 #include <stdlib.h>
 
-fraction *
-multiply_fractions(const fraction *const fraction1,
-                   const fraction *const fraction2)
+void
+multiply_fractions(const fraction *const fraction_in1,
+                   const fraction *const fraction_in2, fraction *const result)
 {
-	fraction *result = (fraction *)malloc(sizeof(fraction));
-	result->numerator = fraction1->numerator * fraction2->numerator;
-	result->denominator = fraction1->denominator * fraction2->denominator;
+	result->numerator = fraction_in1->numerator * fraction_in2->numerator;
+	result->denominator =
+	    fraction_in1->denominator * fraction_in2->denominator;
 	simplify_fraction(result);
-	return result;
 }
 
-fraction *
-add_fractions(const fraction *const fraction1, const fraction *const fraction2)
+void
+add_fractions(const fraction *const fraction_in1,
+              const fraction *const fraction_in2, fraction *const result)
 {
-	fraction *result = (fraction *)malloc(sizeof(fraction));
-	if (fraction1->denominator == fraction2->denominator) {
-		result->numerator = fraction1->numerator + fraction2->numerator;
-		result->denominator = fraction1->denominator;
+	if (fraction_in1->denominator == fraction_in2->denominator) {
+		result->numerator =
+		    fraction_in1->numerator + fraction_in2->numerator;
+		result->denominator = fraction_in1->denominator;
 	} else {
 		result->numerator =
-		    fraction1->numerator * fraction2->denominator +
-		    fraction2->numerator * fraction1->denominator;
+		    fraction_in1->numerator * fraction_in2->denominator +
+		    fraction_in2->numerator * fraction_in1->denominator;
 		result->denominator =
-		    fraction1->denominator * fraction2->denominator;
+		    fraction_in1->denominator * fraction_in2->denominator;
 	}
 	simplify_fraction(result);
-	return result;
 }
 
 /**
  * Substract fraction2 from fraction1
  */
-fraction *
+void
 substract_fractions(const fraction *const fraction1,
-                    const fraction *const fraction2)
+                    const fraction *const fraction2, fraction *const result)
 {
-	fraction *result = (fraction *)malloc(sizeof(fraction));
 	if (fraction1->denominator == fraction2->denominator) {
 		result->numerator = fraction1->numerator - fraction2->numerator;
 		result->denominator = fraction1->denominator;
@@ -50,7 +48,6 @@ substract_fractions(const fraction *const fraction1,
 		    fraction1->denominator * fraction2->denominator;
 	}
 	simplify_fraction(result);
-	return result;
 }
 
 /**
@@ -70,7 +67,7 @@ compare_fractions(const fraction *const f_a, const fraction *const f_b)
  * Returns true if the fraction has been reduced, false otherwise
  */
 bool
-simplify_fraction(fraction *fraction)
+simplify_fraction(fraction *const fraction)
 {
 	if ((fraction->numerator < 0) && (fraction->denominator < 0)) {
 		fraction->numerator *= -1;
@@ -88,7 +85,7 @@ simplify_fraction(fraction *fraction)
 		fraction->denominator = 1;
 		return true;
 	}
-	int divisor = get_gcd(fraction->numerator, fraction->denominator);
+	int divisor = gcd(fraction->numerator, fraction->denominator);
 	if (divisor == 1) {
 		return false;
 	} else {
@@ -98,33 +95,31 @@ simplify_fraction(fraction *fraction)
 	}
 }
 
-fraction *
-invert_fraction(fraction *frac)
+void
+invert_fraction(const fraction *const input_frac, fraction *const result)
 {
-	fraction *result = (fraction *)malloc(sizeof(fraction));
-	if (frac->numerator == 0) {
-		return frac;
+	if (input_frac->numerator == 0) {
+		return;
 	}
-	result->numerator = frac->denominator;
-	result->denominator = frac->numerator;
-	return result;
+	result->numerator = input_frac->denominator;
+	result->denominator = input_frac->numerator;
 }
 
 /**
  * Prepare the numbers for GCD calculation
  */
 int
-get_gcd(const int first, const int second)
+gcd(const int first, const int second)
 {
-	return gcd((first > 0 ? first : -first),
-	           (second > 0 ? second : -second));
+	return compute_gcd((first > 0 ? first : -first),
+	                   (second > 0 ? second : -second));
 }
 
 /**
  * Uses the binary version of the Euclidian algorithm (aka Stein's algorithm)
  */
 int
-gcd(int first, int second /*, int divisions*/)
+compute_gcd(int first, int second)
 {
 	int temp;
 	int divisions = 0;
