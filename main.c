@@ -7,6 +7,14 @@
 
 #define DEFAULT_FILENAME_IN "matrix.txt"
 
+/*
+ * Matrix = 2d array of n_lines elements by n_col fractions
+ * The matrix is referenced in line-column fashion
+ * i.e. element matrix[0][1] is the element at the intersection
+ * of the first line and the second column
+ */
+
+
 int count_char_in_string(const char to_search, const char* string) {
 	int count = 0;
 	while (*string != '\0') {
@@ -20,10 +28,9 @@ int count_char_in_string(const char to_search, const char* string) {
 
 void pp_matrix(fraction** const matrix, const int n_lines, const int n_col) {
 	/*
-	 * Matrix = 2d array of n_lines elements by n_col fractions
-	 * The matrix is referenced in line-column fashion
-	 * i.e. element matrix[0][1] is the element at the intersection
-	 * of the first line and the second column
+	 * The matrix is pretty-printed with brackets represented either
+	 * with parenthesises for single-line matrix or with a combination of
+	 * slashes and vertical bars for multi-line matrixes.
 	 */
 	printf("\n");
 	for (int i = 0; i < n_lines; i++){
@@ -61,6 +68,9 @@ void pp_matrix(fraction** const matrix, const int n_lines, const int n_col) {
 	}
 }
 
+/**
+ * Returns the line number of the greatest value in the column.
+ */
 int find_greatest_value_in_column(fraction** const matrix, const int column, const int n_lines) {
 	/* Start with the smallest possible value */
 	fraction current_max_val = {INT_MIN, 1};
@@ -96,6 +106,7 @@ void triangularise(fraction** const matrix, const int n_lines, const int n_col) 
 		 * column the pivot line */
 		int line_pivot = find_greatest_value_in_column(matrix, i, n_lines);
 		if (line_pivot > i) {
+			/* Make the greatest value the pivot, for greater stability */
 			fraction* temp_line = matrix[i];
 			matrix[i] = matrix[line_pivot];
 			matrix[line_pivot] = temp_line;
@@ -103,20 +114,21 @@ void triangularise(fraction** const matrix, const int n_lines, const int n_col) 
 
 		fraction inverse_of_pivot = *invert_fraction(&matrix[i][i]);
 
+		fraction* substracted_line = (fraction*) malloc(n_col * sizeof(fraction));
 		for (int j = 0; j < n_lines; j++) {
 			if (j == i) {
+				/* This is the pivot */
 				continue;
 			}
 			/* Determine the factor */
 			fraction simplification_factor = *multiply_fractions(&matrix[j][i], &inverse_of_pivot);
-			/* Pre-multiply (a copy!) of the pivot's line */
-			fraction* substracted_line = (fraction*) malloc(n_col * sizeof(fraction));
+			/* Pre-multiply (a copy of!) the pivot's line */
 			substracted_line =  memcpy(substracted_line, matrix[i], n_col * sizeof(fraction));
 			multiply_line_in_place(substracted_line, simplification_factor, n_col);
 			/* Substract the lines */
 			substract_lines_in_place(matrix[j], substracted_line, n_col);
-			free(substracted_line);
 		}
+		free(substracted_line);
 	}
 }
 
@@ -137,7 +149,6 @@ void print_results(fraction** const matrix, const int n_lines, const int n_col) 
 }
 
 int main(const int argc, char* const argv[]) {
-
 	int number_variables = 0;
 	fraction** values_matrix = {0};
 	char* input_filename = "";
@@ -162,6 +173,7 @@ int main(const int argc, char* const argv[]) {
 	fprintf(stderr, "Reading the file\n");
 
 	char string[256];
+	/* Read until a newline is reached */
 	fscanf(input, "%[^\n]", string);
 	rewind(input);
 

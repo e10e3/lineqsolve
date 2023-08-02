@@ -21,6 +21,7 @@ extern bool simplify_fraction(fraction* fraction);
 extern fraction* invert_fraction(fraction*);
 int compare_fractions(const fraction *const, const fraction *const);
 
+/* Internal functions */
 int get_gcd(const int, const int);
 int gcd(int, int);
 
