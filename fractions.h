@@ -14,11 +14,11 @@ struct fraction {
 
 typedef struct fraction fraction;
 
-fraction* multiply_fractions(const fraction* const, const fraction* const);
-fraction* add_fractions(const fraction* const, const fraction* const);
-fraction* substract_fractions(const fraction* const, const fraction* const);
-bool simplify_fraction(fraction*);
-fraction* invert_fraction(fraction*);
+fraction *multiply_fractions(const fraction *const, const fraction *const);
+fraction *add_fractions(const fraction *const, const fraction *const);
+fraction *substract_fractions(const fraction *const, const fraction *const);
+bool simplify_fraction(fraction *);
+fraction *invert_fraction(fraction *);
 int compare_fractions(const fraction *const, const fraction *const);
 
 /* Internal functions */
