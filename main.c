@@ -225,7 +225,7 @@ main(const int argc, char *const argv[])
 
 	/* n variables + result */
 	values_matrix =
-	    (fraction **)malloc(number_variables * sizeof(fraction));
+	    (fraction **)malloc(number_variables * sizeof(fraction *));
 	for (int i = 0; i < number_variables; i++) {
 		values_matrix[i] = (fraction *)malloc((number_variables + 1) *
 		                                      sizeof(fraction));
