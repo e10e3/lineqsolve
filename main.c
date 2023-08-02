@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,7 +62,8 @@ void pp_matrix(fraction** const matrix, const int n_lines, const int n_col) {
 }
 
 int find_greatest_value_in_column(fraction** const matrix, const int column, const int n_lines) {
-	fraction current_max_val = {0, 1};
+	/* Start with the smallest possible value */
+	fraction current_max_val = {INT_MIN, 1};
 	int current_max_index = 0;
 	for (int i = 0; i < n_lines; i++) {
 		fraction* difference = substract_fractions(&matrix[i][column], &current_max_val);
