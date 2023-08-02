@@ -46,6 +46,16 @@ fraction* substract_fractions(const fraction* const fraction1, const fraction* c
 }
 
 /**
+ * Comparison function — returns -1, 0, or 1 if a is less, equal or greater
+ * compared to b.
+ */
+int compare_fractions(const fraction *const f_a, const fraction *const f_b) {
+	long left_side = f_a->numerator * f_b->denominator;
+	long right_side = f_b->numerator * f_a->denominator;
+	return (left_side < right_side) ? -1 : (left_side > right_side);
+}
+
+/**
  * Reduces a given fraction
  * Returns true if the fraction has been reduced, false otherwise
  */

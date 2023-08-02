@@ -66,10 +66,7 @@ int find_greatest_value_in_column(fraction** const matrix, const int column, con
 	fraction current_max_val = {INT_MIN, 1};
 	int current_max_index = 0;
 	for (int i = 0; i < n_lines; i++) {
-		fraction* difference = substract_fractions(&matrix[i][column], &current_max_val);
-		if (difference->numerator > 0) {
-		// equivalent to matrix[i][column] > current_max_val, but
-		// for fractions
+		if (compare_fractions(&matrix[i][column], &current_max_val) == 0) {
 			current_max_val = matrix[i][column];
 			current_max_index = i;
 		}

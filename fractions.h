@@ -20,6 +20,7 @@ extern fraction* substract_fractions(const fraction* const, const fraction* cons
 extern bool simplify_fraction(fraction* fraction);
 extern bool are_fractions_equal(const fraction* const, const fraction* const);
 extern fraction* invert_fraction(fraction*);
+int compare_fractions(const fraction *const, const fraction *const);
 
 int get_gcd(const int, const int);
 int gcd(int, int);
