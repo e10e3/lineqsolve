@@ -41,12 +41,12 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 			if (n_lines == 1) {
 				printf("(");
 			} else {
-				printf("/");
+				printf("⎛");
 			}
 		} else if (i == n_lines - 1) {
-			printf("\\");
+			printf("⎝");
 		} else {
-			printf("|");
+			printf("⎜");
 		}
 
 		for (int j = 0; j < n_col; j++) {
@@ -61,12 +61,12 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 			if (n_lines == 1) {
 				printf(")");
 			} else {
-				printf("\\");
+				printf("⎞");
 			}
 		} else if (i == n_lines - 1) {
-			printf("/");
+			printf("⎠");
 		} else {
-			printf("|");
+			printf("⎟");
 		}
 		printf("\n");
 	}
