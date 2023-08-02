@@ -1,4 +1,6 @@
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "fractions.h"
 
 void test_addition();
@@ -9,6 +11,8 @@ int main() {
 	test_addition();
 	test_simplification();
 	test_multiplication();
+	printf("All good.\n");
+	return EXIT_SUCCESS;
 }
 
 void test_addition() {
