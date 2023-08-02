@@ -18,7 +18,7 @@ void test_addition() {
 		fraction frac2 = {2, 3};
 		fraction* result = add_fractions(&frac1, &frac2);
 		fraction theorical = {8, 3};
-		assert(are_fractions_equal(result, &theorical));
+		assert(compare_fractions(result, &theorical) == 0);
 	}
 	{
 		/* Adding zero */
@@ -26,7 +26,7 @@ void test_addition() {
 		fraction frac2 = {2, 7};
 		fraction* result = add_fractions(&frac1, &frac2);
 		fraction theorical = {2, 7};
-		assert(are_fractions_equal(result, &theorical));
+		assert(compare_fractions(result, &theorical) == 0);
 	}
 	{
 		/* Adding whole numbers */
@@ -34,7 +34,7 @@ void test_addition() {
 		fraction frac2 = {13, 1};
 		fraction* result = add_fractions(&frac1, &frac2);
 		fraction theorical = {18, 1};
-		assert(are_fractions_equal(result, &theorical));
+		assert(compare_fractions(result, &theorical) == 0);
 	}
 }
 
@@ -42,7 +42,7 @@ void test_simplification() {
 	fraction frac1 = {4, 2};
 	simplify_fraction(&frac1);
 	fraction theorical = {2, 1};
-	assert(are_fractions_equal(&frac1, &theorical));
+	assert(compare_fractions(&frac1, &theorical) == 0);
 }
 
 void test_multiplication() {

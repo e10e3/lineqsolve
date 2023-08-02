@@ -86,12 +86,6 @@ bool simplify_fraction(fraction* fraction) {
 	}
 }
 
-bool are_fractions_equal(const fraction* const frac1, const fraction* const frac2) {
-	return (
-			(frac1->numerator == frac2->numerator) &&
-			(frac1->denominator == frac2->denominator) );
-}
-
 fraction* invert_fraction(fraction* frac) {
 	fraction* result = (fraction*) malloc(sizeof(fraction));
 	if (frac->numerator == 0) {
