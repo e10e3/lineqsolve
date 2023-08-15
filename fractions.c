@@ -1,7 +1,24 @@
+/**
+ * @file fractions.c
+ * @brief Implementation of mathematical operations for fractions.
+ *
+ * Most functions operate on @ref fraction structures.
+ *
+ * @see fractions.h
+ */
 #include "fractions.h"
 
 #include <stdlib.h>
 
+/**
+ * @brief Multiplies two fractions together.
+ *
+ * The result of the multiplication is stored in simplified form.
+ *
+ * @param[in] fraction_in1 The product's first term.
+ * @param[in] fraction_in2 The product's second term.
+ * @param[out] result Where to store the product's result.
+ */
 void
 multiply_fractions(const fraction *const fraction_in1,
                    const fraction *const fraction_in2, fraction *const result)
@@ -12,6 +29,15 @@ multiply_fractions(const fraction *const fraction_in1,
 	simplify_fraction(result);
 }
 
+/**
+ * @brief Adds two fractions together.
+ *
+ * The result of the addition is stored in simplified form.
+ *
+ * @param[in] fraction_in1 The sum's first term.
+ * @param[in] fraction_in2 The sum's second term.
+ * @param[out] result Where to store the sum's result.
+ */
 void
 add_fractions(const fraction *const fraction_in1,
               const fraction *const fraction_in2, fraction *const result)
@@ -31,7 +57,17 @@ add_fractions(const fraction *const fraction_in1,
 }
 
 /**
- * Substract fraction2 from fraction1
+ * @brief Substract a fraction to another.
+ *
+ * Performs `fraction1` - `fraction2`.
+ *
+ * The result of the substration is stored in simplified form.
+ *
+ * @param[in] fraction1 The substraction's first termi (the fraction being
+ * substracted from).
+ * @param[in] fraction2 The substraction's second term (the fraction being
+ * substracted).
+ * @param[out] result Where to store the substration's result.
  */
 void
 substract_fractions(const fraction *const fraction1,
@@ -51,8 +87,18 @@ substract_fractions(const fraction *const fraction1,
 }
 
 /**
- * Comparison function — returns -1, 0, or 1 if a is less, equal or greater
- * compared to b.
+ * @brief Compares two fractions
+ *
+ * Performs a comparison of two fractions, indicating the result in
+ * `strcmp`-style.
+ *
+ * Its return value is -1, 0, or 1 if fraction a is respectively less, equal or
+ * greater compared to fraction b.
+ *
+ * @param[in] f_a The first fraction to compare.
+ * @param[in] f_b The second fraction to compare.
+ *
+ * @return The ordering of `f_a` and `f_b` as an integer.
  */
 int
 compare_fractions(const fraction *const f_a, const fraction *const f_b)
@@ -63,8 +109,15 @@ compare_fractions(const fraction *const f_a, const fraction *const f_b)
 }
 
 /**
- * Reduces a given fraction
- * Returns true if the fraction has been reduced, false otherwise
+ * @brief Reduces a given fraction in place.
+ *
+ * If the fraction is already simplified (*i.e.* its numerator and denominator
+ * are relatively primes), it is not simplified further and the function
+ * returns false.
+ *
+ * @param [in,out] fraction The fraction of simplify.
+ *
+ * @return Whether the fraction was simplified.
  */
 bool
 simplify_fraction(fraction *const fraction)
@@ -95,6 +148,15 @@ simplify_fraction(fraction *const fraction)
 	}
 }
 
+/**
+ * @brief Gives the invert of a fraction.
+ *
+ * @warning If the input fraction is null (its numerator is 0), no action is
+ * performed and the value of *result is not modified.
+ *
+ * @param[in] input_frac The fraction to invert.
+ * @param[out] result Where to store the inverted fraction.
+ */
 void
 invert_fraction(const fraction *const input_frac, fraction *const result)
 {
@@ -106,7 +168,16 @@ invert_fraction(const fraction *const input_frac, fraction *const result)
 }
 
 /**
- * Prepare the numbers for GCD calculation
+ * @brief Gives the GCD of two integers
+ *
+ * Computes the greatest commom divisor (GCD) of any two integers.
+ *
+ * Calls @ref compute_gcd with the absolute value of its arguments.
+ *
+ * @param[in] first One of the integers to compute the GCD of.
+ * @param[in] second One of the integers to compute the GCD of.
+ *
+ * @return The GCD of its inputs.
  */
 int
 gcd(const int first, const int second)
@@ -116,7 +187,16 @@ gcd(const int first, const int second)
 }
 
 /**
+ * @brief Gives the GCD of two _positive_ integers.
+ *
  * Uses the binary version of the Euclidian algorithm (aka Stein's algorithm)
+ *
+ * @param[in] first One of the integers to compute the GCD of.
+ * @param[in] second One of the integers to compute the GCD of.
+ *
+ * @return The GCD of its inputs.
+ *
+ * @see gcd() for a general version.
  */
 int
 compute_gcd(int first, int second)

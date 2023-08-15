@@ -6,3 +6,5 @@
 lineqsolve
 # the compiled testing suite
 test
+# generated documentation
+doc/

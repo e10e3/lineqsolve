@@ -1,3 +1,15 @@
+/**
+ * @file main.c
+ * @brief The main logic file.
+ *
+ * The matrix used in this program is modeled as a 2D array of fractions, with
+ * \f$n_{\mathrm{lines}}\times n_{\mathrm{col}}\f$ elements.
+ *
+ * The matrix is referenced in a line-column fashion (row-major). *I.e.* the
+ * value at `matrix[0][1]` is the element at the intersection of the first line
+ * and the second colum.
+ */
+
 #include "main.h"
 
 #include <limits.h>
@@ -5,15 +17,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief The file to read for the input matrix in case none is given as an
+ * argument.
+ */
 #define DEFAULT_FILENAME_IN "matrix.txt"
 
-/*
- * Matrix = 2d array of n_lines elements by n_col fractions
- * The matrix is referenced in line-column fashion
- * i.e. element matrix[0][1] is the element at the intersection
- * of the first line and the second column
+/**
+ * @brief Counts the occurences of a character in a string.
+ *
+ * @param[in] to_search The character to look for.
+ * @param[in] string The string to search in.
+ *
+ * @return The number of matches.
  */
-
 int
 count_char_in_string(const char to_search, const char *string)
 {
@@ -27,6 +44,16 @@ count_char_in_string(const char to_search, const char *string)
 	return count;
 }
 
+/**
+ * @brief Pretty-prints a matrix.
+ *
+ * Prints a 2D array of fractions on the standard output, formatted as a
+ * matrix.
+ *
+ * @param[in] matrix The matrix to print.
+ * @param[in] n_lines The number of lines of the matrix.
+ * @param[in] n_col The number of columns of the matrix.
+ */
 void
 pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 {
@@ -73,7 +100,13 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 }
 
 /**
- * Returns the line number of the greatest value in the column.
+ * @brief Finds the greatest fraction in matrix's column.
+ *
+ * @param[in] matrix The matrix to search the values in.
+ * @param[in] column The index of the column to search in.
+ * @param[in] n_lines The number of lines in the matrix.
+ *
+ * @return The line number of the column's greatest item.
  */
 int
 find_greatest_value_in_column(fraction **const matrix, const int column,
@@ -93,7 +126,15 @@ find_greatest_value_in_column(fraction **const matrix, const int column,
 }
 
 /**
- * Subtract line2 from line1 in place
+ * @brief Substract two matrix lines in places
+ *
+ * Piece-wise removes the value in line2 from line1, and stores the result in
+ * line1.
+ *
+ * @param[in, out] line1 Pointer to the first item of the line being substracted
+ * from.
+ * @param[in] line2 Pointer to the line being substracted.
+ * @param[in] n_col The number of columns in the matrix.
  */
 void
 substract_lines_in_place(fraction *const line1, fraction *const line2,
@@ -104,6 +145,15 @@ substract_lines_in_place(fraction *const line1, fraction *const line2,
 	}
 }
 
+/**
+ * @brief Multiplies the values in the line by a fraction.
+ *
+ * The fractions in the line are multiplied in place by the indicated fraction.
+ *
+ * @param[in, out] line Pointer to the first item of the line being multiplied.
+ * @param[in] factor The fraction to multiply the line by.
+ * @param[in] n_col The number of columns in the line.
+ */
 void
 multiply_line_in_place(fraction *const line, const fraction factor,
                        const int n_col)
@@ -113,6 +163,16 @@ multiply_line_in_place(fraction *const line, const fraction factor,
 	}
 }
 
+/**
+ * @brief Computes a row-echelon form of the matrix.
+ *
+ * Uses Gauss' method (row operations) to find a row-echelon form of the matrix.
+ * The matrix is modified in place.
+ *
+ * @param[in, out] matrix The matrix to manipulate.
+ * @param[in] n_lines The number of lines in the matrix.
+ * @param[in] n_col The number of columns in the matrix.
+ */
 void
 triangularise(fraction **const matrix, const int n_lines, const int n_col)
 {
@@ -157,11 +217,34 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 	}
 }
 
+/**
+ * @brief Reduces a matrix in upper-echelon form.
+ *
+ * Uses back-substitution to transform a matrix in row-echelon form to its
+ * reduced-row-echelon form.
+ *
+ * This function is currently unsued.
+ *
+ * @param[in,out] matrix The matrix to reduce.
+ * @param[in] n_lines The number of lines in the matrix.
+ * @param[in] n_col The number of columns in the matrix.
+ */
 void
 diagonalise(fraction **const matrix, const int n_lines, const int n_col)
 {
 }
 
+/**
+ * @brief Performs the gaussian elimination method on the matrix.
+ *
+ * Uses the gaussian elimitation method on an augmented matrix to find the
+ * solution of its corresponding system of linear equations. The matrix is
+ * modified in place.
+ *
+ * @param[in, out] matrix The matrix system to resolve.
+ * @param[in] n_lines The number of lines in the matrix.
+ * @param[in] n_col The number of columns in the matrix.
+ */
 void
 gaussian_elimination(fraction **const matrix, const int n_lines,
                      const int n_col)
@@ -170,6 +253,14 @@ gaussian_elimination(fraction **const matrix, const int n_lines,
 	diagonalise(matrix, n_lines, n_col);
 }
 
+/**
+ * @brief Prints the solution to the linear equation system after gaussian
+ * elimination.
+ *
+ * @param[in] matrix The matrix to print.
+ * @param[in] n_lines The number of lines in the matrix.
+ * @param[in] n_col The number of columns in the matrix.
+ */
 void
 print_results(fraction **const matrix, const int n_lines, const int n_col)
 {
@@ -187,6 +278,16 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
 	}
 }
 
+/**
+ * @brief The entry point of the program.
+ *
+ * Handles reading the input files and creating the matrix.
+ *
+ * @param[in] argc The number of arguments supplied to the program.
+ * @param[in] argv The array containing the arguments.
+ *
+ * @return The ending status of the program.
+ */
 int
 main(const int argc, char *const argv[])
 {

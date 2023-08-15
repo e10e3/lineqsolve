@@ -1,5 +1,7 @@
-/*
- * Header file for main.c
+/**
+ * @file main.h
+ * @brief Function prototypes for main.c
+ * @see main.c
  */
 
 #ifndef MAIN_H
