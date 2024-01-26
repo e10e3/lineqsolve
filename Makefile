@@ -7,7 +7,7 @@
 # $*	The "stem" of an implicit or pattern rule
 
 CC = gcc
-CFLAGS = -g -O3 -Wall -Wextra
+CFLAGS = -g -O0 -Wall -Wextra -std=c99 -pedantic
 LDFLAGS = -fsanitize=address -fsanitize=undefined
 
 lineqsolve: main.o fractions.o
