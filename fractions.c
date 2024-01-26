@@ -10,6 +10,67 @@
 
 #include <stdlib.h>
 
+/* -- Helper functions -- */
+
+/**
+ * @brief Gives the GCD of two _positive_ integers.
+ *
+ * Uses the binary version of the Euclidian algorithm (aka Stein's algorithm)
+ *
+ * @param[in] first One of the integers to compute the GCD of.
+ * @param[in] second One of the integers to compute the GCD of.
+ *
+ * @return The GCD of its inputs.
+ *
+ * @see gcd() for a general version.
+ */
+int
+compute_gcd(int first, int second)
+{
+	int temp;
+	int divisions = 0;
+	while (second != 0) {
+		if (first < second) {
+			temp = second;
+			second = first;
+			first = temp;
+		}
+		if (first % 2 == 0 && second % 2 == 0) {
+			first /= 2;
+			second /= 2;
+			divisions++;
+		} else if (first % 2 == 0) {
+			first /= 2;
+		} else if (second % 2 == 0) {
+			second /= 2;
+		} else {
+			first -= second;
+		}
+	}
+	return first << divisions;
+}
+
+/**
+ * @brief Gives the GCD of two integers
+ *
+ * Computes the greatest commom divisor (GCD) of any two integers.
+ *
+ * Calls @ref compute_gcd with the absolute value of its arguments.
+ *
+ * @param[in] first One of the integers to compute the GCD of.
+ * @param[in] second One of the integers to compute the GCD of.
+ *
+ * @return The GCD of its inputs.
+ */
+int
+gcd(const int first, const int second)
+{
+	return compute_gcd((first > 0 ? first : -first),
+	                   (second > 0 ? second : -second));
+}
+
+/* -- Arithmetic functions -- */
+
 /**
  * @brief Multiplies two fractions together.
  *
@@ -165,61 +226,4 @@ invert_fraction(const fraction *const input_frac, fraction *const result)
 	}
 	result->numerator = input_frac->denominator;
 	result->denominator = input_frac->numerator;
-}
-
-/**
- * @brief Gives the GCD of two integers
- *
- * Computes the greatest commom divisor (GCD) of any two integers.
- *
- * Calls @ref compute_gcd with the absolute value of its arguments.
- *
- * @param[in] first One of the integers to compute the GCD of.
- * @param[in] second One of the integers to compute the GCD of.
- *
- * @return The GCD of its inputs.
- */
-int
-gcd(const int first, const int second)
-{
-	return compute_gcd((first > 0 ? first : -first),
-	                   (second > 0 ? second : -second));
-}
-
-/**
- * @brief Gives the GCD of two _positive_ integers.
- *
- * Uses the binary version of the Euclidian algorithm (aka Stein's algorithm)
- *
- * @param[in] first One of the integers to compute the GCD of.
- * @param[in] second One of the integers to compute the GCD of.
- *
- * @return The GCD of its inputs.
- *
- * @see gcd() for a general version.
- */
-int
-compute_gcd(int first, int second)
-{
-	int temp;
-	int divisions = 0;
-	while (second != 0) {
-		if (first < second) {
-			temp = second;
-			second = first;
-			first = temp;
-		}
-		if (first % 2 == 0 && second % 2 == 0) {
-			first /= 2;
-			second /= 2;
-			divisions++;
-		} else if (first % 2 == 0) {
-			first /= 2;
-		} else if (second % 2 == 0) {
-			second /= 2;
-		} else {
-			first -= second;
-		}
-	}
-	return first << divisions;
 }

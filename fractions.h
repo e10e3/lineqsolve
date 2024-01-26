@@ -38,8 +38,4 @@ int compare_fractions(const fraction *const, const fraction *const);
 bool simplify_fraction(fraction *const);
 void invert_fraction(const fraction *const, fraction *const);
 
-/* Internal functions */
-int gcd(const int, const int);
-int compute_gcd(int, int);
-
 #endif /* FRACTIONS_H */
