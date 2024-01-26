@@ -91,33 +91,6 @@ multiply_fractions(const fraction *const fraction_in1,
 }
 
 /**
- * @brief Adds two fractions together.
- *
- * The result of the addition is stored in simplified form.
- *
- * @param[in] fraction_in1 The sum's first term.
- * @param[in] fraction_in2 The sum's second term.
- * @param[out] result Where to store the sum's result.
- */
-void
-add_fractions(const fraction *const fraction_in1,
-              const fraction *const fraction_in2, fraction *const result)
-{
-	if (fraction_in1->denominator == fraction_in2->denominator) {
-		result->numerator =
-		    fraction_in1->numerator + fraction_in2->numerator;
-		result->denominator = fraction_in1->denominator;
-	} else {
-		result->numerator =
-		    fraction_in1->numerator * fraction_in2->denominator +
-		    fraction_in2->numerator * fraction_in1->denominator;
-		result->denominator =
-		    fraction_in1->denominator * fraction_in2->denominator;
-	}
-	simplify_fraction(result);
-}
-
-/**
  * @brief Substract a fraction to another.
  *
  * Performs `fraction1` - `fraction2`.

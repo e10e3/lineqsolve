@@ -30,8 +30,6 @@ typedef struct fraction fraction;
 
 void multiply_fractions(const fraction *const, const fraction *const,
                         fraction *const);
-void add_fractions(const fraction *const, const fraction *const,
-                   fraction *const);
 void substract_fractions(const fraction *const, const fraction *const,
                          fraction *const);
 int compare_fractions(const fraction *const, const fraction *const);
