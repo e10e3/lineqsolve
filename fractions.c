@@ -24,10 +24,10 @@
  *
  * @see gcd() for a general version.
  */
-int
-compute_gcd(int first, int second)
+unsigned int
+compute_gcd(unsigned int first, unsigned int second)
 {
-	int temp;
+	unsigned int temp;
 	int divisions = 0;
 	while (second != 0) {
 		if (first < second) {
@@ -62,7 +62,7 @@ compute_gcd(int first, int second)
  *
  * @return The GCD of its inputs.
  */
-int
+unsigned int
 gcd(const int first, const int second)
 {
 	return compute_gcd((first > 0 ? first : -first),
@@ -199,7 +199,7 @@ simplify_fraction(fraction *const fraction)
 		fraction->denominator = 1;
 		return true;
 	}
-	int divisor = gcd(fraction->numerator, fraction->denominator);
+	unsigned int divisor = gcd(fraction->numerator, fraction->denominator);
 	if (divisor == 1) {
 		return false;
 	} else {
