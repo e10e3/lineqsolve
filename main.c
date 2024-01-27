@@ -194,7 +194,10 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 		invert_fraction(&matrix[i][i], &inverse_of_pivot);
 
 		fraction *substracted_line =
-		    (fraction *)malloc(n_col * sizeof(fraction));
+		    (fraction *)calloc(n_col, sizeof(fraction));
+		if (substracted_line == NULL) {
+			exit(EXIT_FAILURE);
+		}
 		for (int j = 0; j < n_lines; j++) {
 			if (j == i) {
 				/* This is the pivot */
@@ -324,12 +327,21 @@ main(const int argc, char *const argv[])
 	number_variables = count_char_in_string(' ', string);
 	fprintf(stderr, "This system has %d variables.\n", number_variables);
 
-	/* n variables + result */
 	values_matrix =
-	    (fraction **)malloc(number_variables * sizeof(fraction *));
+	    (fraction **)calloc(number_variables, sizeof(fraction *));
+	if (values_matrix == NULL) {
+		fprintf(stderr, "ERROR: the memory was not allocated.\n");
+		exit(EXIT_FAILURE);
+	}
 	for (int i = 0; i < number_variables; i++) {
-		values_matrix[i] = (fraction *)malloc((number_variables + 1) *
-		                                      sizeof(fraction));
+		/* n variables + result */
+		values_matrix[i] =
+		    (fraction *)calloc(number_variables + 1, sizeof(fraction));
+		if (values_matrix[i] == NULL) {
+			fprintf(stderr,
+			        "ERROR: the memory was not allocated.\n");
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	for (int i = 0; i < (number_variables); i++) {
