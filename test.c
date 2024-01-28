@@ -4,14 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void test_addition();
+void test_substraction();
 void test_simplification();
 void test_multiplication();
 
 int
 main()
 {
-	test_addition();
+	test_substraction();
 	test_simplification();
 	test_multiplication();
 	printf("All good.\n");
@@ -19,33 +19,33 @@ main()
 }
 
 void
-test_addition()
+test_substraction()
 {
 	{
-		/* Standard addition */
-		fraction frac1 = {4, 2};
-		fraction frac2 = {2, 3};
+		/* Standard substraction */
+		fraction frac1 = {8, 3};
+		fraction frac2 = {4, 2};
 		fraction result = {0};
-		add_fractions(&frac1, &frac2, &result);
-		fraction theorical = {8, 3};
+		substract_fractions(&frac1, &frac2, &result);
+		fraction theorical = {2, 3};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Adding zero */
-		fraction frac1 = {0, 5};
-		fraction frac2 = {2, 7};
+		/* Substracting zero */
+		fraction frac1 = {2, 7};
+		fraction frac2 = {0, 5};
 		fraction result = {0};
-		add_fractions(&frac1, &frac2, &result);
+		substract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {2, 7};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Adding whole numbers */
-		fraction frac1 = {5, 1};
-		fraction frac2 = {13, 1};
+		/* Substracting whole numbers */
+		fraction frac1 = {18, 1};
+		fraction frac2 = {5, 1};
 		fraction result = {0};
-		add_fractions(&frac1, &frac2, &result);
-		fraction theorical = {18, 1};
+		substract_fractions(&frac1, &frac2, &result);
+		fraction theorical = {13, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 }
