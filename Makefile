@@ -18,3 +18,5 @@ main.o: main.h
 fractions.o: fractions.h
 
 test: fractions.o
+
+all: lineqsolve test
