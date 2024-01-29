@@ -318,7 +318,7 @@ main(const int argc, char *const argv[])
 
 	char string[256];
 	/* Read until a newline is reached */
-	fscanf(input, "%[^\n]", string);
+	fgets(string, 256, input);
 	rewind(input);
 
 	number_variables = count_char_in_string(' ', string);
