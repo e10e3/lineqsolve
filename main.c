@@ -40,6 +40,11 @@ count_char_in_string(const char to_search, const char *string)
 			count++;
 		}
 		string++;
+		if (count == INT_MAX) {
+			/* The end of the string has been overshot, something
+			 * went wrong */
+			return 0;
+		}
 	}
 	return count;
 }
@@ -65,11 +70,7 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 	printf("\n");
 	for (int i = 0; i < n_lines; i++) {
 		if (i == 0) {
-			if (n_lines == 1) {
-				printf("(");
-			} else {
-				printf("⎛");
-			}
+			printf("⎛");
 		} else if (i == n_lines - 1) {
 			printf("⎝");
 		} else {
@@ -85,11 +86,7 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 		}
 
 		if (i == 0) {
-			if (n_lines == 1) {
-				printf(")");
-			} else {
-				printf("⎞");
-			}
+			printf("⎞");
 		} else if (i == n_lines - 1) {
 			printf("⎠");
 		} else {
@@ -325,6 +322,15 @@ main(const int argc, char *const argv[])
 	rewind(input);
 
 	number_variables = count_char_in_string(' ', string);
+	if (number_variables == 0) {
+		fprintf(stderr,
+		        "ERROR: the number of variables could not be read.\n");
+		exit(EXIT_FAILURE);
+	} else if (number_variables == 1) {
+		printf("This system only has one variable, it is already "
+		       "solved.\n");
+		exit(EXIT_SUCCESS);
+	}
 	fprintf(stderr, "This system has %d variables.\n", number_variables);
 
 	values_matrix =
@@ -344,7 +350,7 @@ main(const int argc, char *const argv[])
 		}
 	}
 
-	for (int i = 0; i < (number_variables); i++) {
+	for (int i = 0; i < number_variables; i++) {
 		for (int j = 0; j < (number_variables + 1); j++) {
 			fscanf(input, "%d", &values_matrix[i][j].numerator);
 			values_matrix[i][j].denominator = 1;
