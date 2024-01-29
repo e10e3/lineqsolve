@@ -114,7 +114,7 @@ find_greatest_value_in_column(fraction **const matrix, const int column,
 	int current_max_index = 0;
 	for (int i = 0; i < n_lines; i++) {
 		if (compare_fractions(&matrix[i][column], &current_max_val) ==
-		    0) {
+		    1) {
 			current_max_val = matrix[i][column];
 			current_max_index = i;
 		}
