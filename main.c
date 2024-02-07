@@ -110,7 +110,7 @@ find_greatest_value_in_column(fraction **const matrix, const int column,
                               const int n_lines)
 {
 	/* Start with the smallest possible value */
-	fraction current_max_val = {INT_MIN, 1};
+	fraction current_max_val = {0, INT_MIN, 1};
 	int current_max_index = 0;
 	for (int i = 0; i < n_lines; i++) {
 		if (compare_fractions(&matrix[i][column], &current_max_val) ==
@@ -270,9 +270,10 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
 		fraction var_i_val = {0};
 		multiply_fractions(&matrix[i][n_col - 1], &inverted_pivot,
 		                   &var_i_val);
-		float var_i_approx =
-		    var_i_val.numerator * 1.0 / var_i_val.denominator;
-		printf("The value of the variable %d is: %g (%d/%d).\n", i + 1,
+		float var_i_approx = var_i_val.numerator *
+		                     (var_i_val.negative ? -1.0 : 1.0) /
+		                     var_i_val.denominator;
+		printf("The value of the variable %d is: %g (±%d/%d).\n", i + 1,
 		       var_i_approx, var_i_val.numerator,
 		       var_i_val.denominator);
 	}
@@ -352,7 +353,7 @@ main(const int argc, char *const argv[])
 
 	for (int i = 0; i < number_variables; i++) {
 		for (int j = 0; j < (number_variables + 1); j++) {
-			fscanf(input, "%d", &values_matrix[i][j].numerator);
+			fscanf(input, "%u", &values_matrix[i][j].numerator);
 			values_matrix[i][j].denominator = 1;
 		}
 	}

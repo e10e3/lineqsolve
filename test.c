@@ -23,29 +23,29 @@ test_substraction()
 {
 	{
 		/* Standard substraction */
-		fraction frac1 = {8, 3};
-		fraction frac2 = {4, 2};
+		fraction frac1 = {0, 8, 3};
+		fraction frac2 = {0, 4, 2};
 		fraction result = {0};
 		substract_fractions(&frac1, &frac2, &result);
-		fraction theorical = {2, 3};
+		fraction theorical = {0, 2, 3};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
 		/* Substracting zero */
-		fraction frac1 = {2, 7};
-		fraction frac2 = {0, 5};
+		fraction frac1 = {0, 2, 7};
+		fraction frac2 = {0, 0, 5};
 		fraction result = {0};
 		substract_fractions(&frac1, &frac2, &result);
-		fraction theorical = {2, 7};
+		fraction theorical = {0, 2, 7};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
 		/* Substracting whole numbers */
-		fraction frac1 = {18, 1};
-		fraction frac2 = {5, 1};
+		fraction frac1 = {0, 18, 1};
+		fraction frac2 = {0, 5, 1};
 		fraction result = {0};
 		substract_fractions(&frac1, &frac2, &result);
-		fraction theorical = {13, 1};
+		fraction theorical = {0, 13, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 }
@@ -53,10 +53,12 @@ test_substraction()
 void
 test_simplification()
 {
-	fraction frac1 = {4, 2};
-	simplify_fraction(&frac1);
-	fraction theorical = {2, 1};
-	assert(compare_fractions(&frac1, &theorical) == 0);
+	{
+		fraction frac1 = {0, 4, 2};
+		simplify_fraction(&frac1);
+		fraction theorical = {0, 2, 1};
+		assert(compare_fractions(&frac1, &theorical) == 0);
+	}
 }
 
 void

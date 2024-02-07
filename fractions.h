@@ -14,12 +14,23 @@
  *
  * A fraction is written in the form \f$\frac{a}{b}\f$, where \f$a\f$ is the
  * numerator of the fraction and \f$b\f$ its denominator.
+ *
+ * Since negative signs cancel each other out, storing one for the whole
+ * fraction is enough.
+ */
+/*
+ * This implementation is sightly less memory-efficient than storing signed
+ * integers, but it allows for a) more precision and b) less integer overflow
+ * problems.
  */
 struct fraction {
+	/** Whether the fraction is negative. This is effectively a sign byte.
+	 */
+	bool negative;
 	/** The numerator of the fraction */
-	int numerator;
+	unsigned int numerator;
 	/** The denominator of the fraction */
-	int denominator;
+	unsigned int denominator;
 };
 
 /**
