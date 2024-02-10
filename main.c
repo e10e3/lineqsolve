@@ -78,7 +78,7 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 		}
 
 		for (int j = 0; j < n_col; j++) {
-			printf("%d/%d", matrix[i][j].numerator,
+			printf("%u/%u", matrix[i][j].numerator,
 			       matrix[i][j].denominator);
 			if (j != n_col - 1) {
 				printf(" ");
@@ -273,7 +273,7 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
 		float var_i_approx = var_i_val.numerator *
 		                     (var_i_val.negative ? -1.0 : 1.0) /
 		                     var_i_val.denominator;
-		printf("The value of the variable %d is: %g (±%d/%d).\n", i + 1,
+		printf("The value of the variable %d is: %g (±%u/%u).\n", i + 1,
 		       var_i_approx, var_i_val.numerator,
 		       var_i_val.denominator);
 	}
