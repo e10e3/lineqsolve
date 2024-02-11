@@ -201,3 +201,18 @@ invert_fraction(const fraction *const input_frac, fraction *const result)
 	result->numerator = input_frac->denominator;
 	result->denominator = input_frac->numerator;
 }
+
+/**
+ * @brief Gives the sign of a fraction as a printable character.
+ *
+ * The character is '+' if the fraction is positive, and '-' if it is negative.
+ *
+ * @param[in] fraction The fraction to describe.
+ *
+ * @return A character representing the sign of the fraction.
+ */
+char
+fraction_sign_as_character(const fraction *const fraction)
+{
+	return fraction->negative ? '-' : '+';
+}

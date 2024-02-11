@@ -46,5 +46,6 @@ void substract_fractions(const fraction *const, const fraction *const,
 int compare_fractions(const fraction *const, const fraction *const);
 bool simplify_fraction(fraction *const);
 void invert_fraction(const fraction *const, fraction *const);
+char fraction_sign_as_character(const fraction *const);
 
 #endif /* FRACTIONS_H */
