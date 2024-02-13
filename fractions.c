@@ -17,41 +17,23 @@
 /**
  * @brief Gives the GCD of two _positive_ integers.
  *
- * Computes the greatest commom divisor (GCD) of the two integers.
+ * Computes the greatest commom divisor (GCD) of the two integers using the
+ * Euclidian algorithm.
  *
- * Uses the binary version of the Euclidian algorithm (aka Stein's algorithm)
- *
- * @param[in] first One of the integers to compute the GCD of.
- * @param[in] second One of the integers to compute the GCD of.
+ * @param[in] a One of the integers to compute the GCD of.
+ * @param[in] b One of the integers to compute the GCD of.
  *
  * @return The GCD of its inputs.
- *
- * @see gcd() for a general version.
  */
 unsigned int
-gcd(unsigned int first, unsigned int second)
+gcd(unsigned int a, unsigned int b)
 {
-	unsigned int temp;
-	int divisions = 0;
-	while (second != 0) {
-		if (first < second) {
-			temp = second;
-			second = first;
-			first = temp;
-		}
-		if (first % 2 == 0 && second % 2 == 0) {
-			first /= 2;
-			second /= 2;
-			divisions++;
-		} else if (first % 2 == 0) {
-			first /= 2;
-		} else if (second % 2 == 0) {
-			second /= 2;
-		} else {
-			first -= second;
-		}
+	while (b != 0) {
+		unsigned int t = b;
+		b = a % b;
+		a = t;
 	}
-	return first << divisions;
+	return a;
 }
 
 /* -- Arithmetic functions -- */
@@ -171,8 +153,7 @@ simplify_fraction(fraction *const fraction)
 		fraction->denominator = 1;
 		return true;
 	}
-	unsigned int divisor =
-	    gcd(fraction->numerator, fraction->denominator);
+	unsigned int divisor = gcd(fraction->numerator, fraction->denominator);
 	if (divisor == 1) {
 		return false;
 	} else {
