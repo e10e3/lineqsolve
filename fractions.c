@@ -197,3 +197,16 @@ fraction_sign_as_character(const fraction *const fraction)
 {
 	return fraction->negative ? '-' : '+';
 }
+
+void
+fraction_from_int(int input, fraction *const output)
+{
+	output->denominator = 1;
+	if (input < 0) {
+		output->negative = true;
+		output->numerator = -input;
+	} else {
+		output->negative = false;
+		output->numerator = input;
+	}
+}

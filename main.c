@@ -356,8 +356,9 @@ main(const int argc, char *const argv[])
 
 	for (int i = 0; i < number_variables; i++) {
 		for (int j = 0; j < (number_variables + 1); j++) {
-			fscanf(input, "%u", &values_matrix[i][j].numerator);
-			values_matrix[i][j].denominator = 1;
+			int input_coefficient = 0;
+			fscanf(input, "%d", &input_coefficient);
+			fraction_from_int(input_coefficient, &values_matrix[i][j]);
 		}
 	}
 
