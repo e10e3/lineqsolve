@@ -7,10 +7,12 @@
 void test_substraction();
 void test_simplification();
 void test_multiplication();
+void test_comparison(void);
 
 int
 main()
 {
+	test_comparison();
 	test_substraction();
 	test_simplification();
 	test_multiplication();
@@ -134,5 +136,32 @@ test_multiplication()
 		multiply_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 20, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
+	}
+}
+
+void
+test_comparison(void) {
+	{
+		/* Same fraction */
+		fraction frac1 = {0, 2, 1};
+		fraction frac2 = {0, 2, 1};
+		assert(compare_fractions(&frac1, &frac2) == 0);
+	}
+	{
+		/* Different signs */
+		fraction frac1 = {0, 5, 7};
+		fraction frac2 = {1, 5, 7};
+		assert(compare_fractions(&frac1, &frac2) == 1);
+	}
+	{
+		/* Smaller */
+		fraction frac1 = {0, 3, 8};
+		fraction frac2 = {0, 15, 11};
+		assert(compare_fractions(&frac1, &frac2) == -1);
+	}
+	{
+		fraction frac1 = {1, 6, 4};
+		fraction frac2 = {0, 9, 7};
+		assert(compare_fractions(&frac1, &frac2) == -1);
 	}
 }
