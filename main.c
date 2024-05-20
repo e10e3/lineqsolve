@@ -192,8 +192,7 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 		fraction inverse_of_pivot = {0};
 		invert_fraction(&matrix[i][i], &inverse_of_pivot);
 
-		fraction *substracted_line =
-		    (fraction *)calloc(n_col, sizeof(fraction));
+		fraction *substracted_line = calloc(n_col, sizeof(fraction));
 		if (substracted_line == NULL) {
 			exit(EXIT_FAILURE);
 		}
@@ -337,8 +336,7 @@ main(const int argc, const char *const argv[])
 	}
 	fprintf(stderr, "This system has %d variables.\n", number_variables);
 
-	values_matrix =
-	    (fraction **)calloc(number_variables, sizeof(fraction *));
+	values_matrix = calloc(number_variables, sizeof(fraction *));
 	if (values_matrix == NULL) {
 		fprintf(stderr, "ERROR: the memory was not allocated.\n");
 		exit(EXIT_FAILURE);
@@ -346,7 +344,7 @@ main(const int argc, const char *const argv[])
 	for (int i = 0; i < number_variables; i++) {
 		/* n variables + result */
 		values_matrix[i] =
-		    (fraction *)calloc(number_variables + 1, sizeof(fraction));
+		    calloc(number_variables + 1, sizeof(fraction));
 		if (values_matrix[i] == NULL) {
 			fprintf(stderr,
 			        "ERROR: the memory was not allocated.\n");
@@ -358,7 +356,8 @@ main(const int argc, const char *const argv[])
 		for (int j = 0; j < (number_variables + 1); j++) {
 			int input_coefficient = 0;
 			fscanf(input, "%d", &input_coefficient);
-			fraction_from_int(input_coefficient, &values_matrix[i][j]);
+			fraction_from_int(input_coefficient,
+			                  &values_matrix[i][j]);
 		}
 	}
 
