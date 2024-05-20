@@ -1,6 +1,8 @@
 Linear equations solver
 =============================
 
+A not-very-fancy linear equations solver.
+
 See https://en.wikipedia.org/wiki/Gaussian_elimination for Gauss-Jordan's
 algorithm and its uses for solving systems of linear equations.
 
