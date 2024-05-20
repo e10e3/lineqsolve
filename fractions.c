@@ -144,21 +144,21 @@ compare_fractions(const fraction *const f_a, const fraction *const f_b)
  * @return Whether the fraction was simplified.
  */
 bool
-simplify_fraction(fraction *const fraction)
+simplify_fraction(fraction *const f)
 {
 	/* If the fraction is equal to zero, we chose to force the
 	 * denominator to 1, make it positive and consider it reduced */
-	if (fraction->numerator == 0) {
-		fraction->negative = 0;
-		fraction->denominator = 1;
+	if (f->numerator == 0) {
+		f->negative = 0;
+		f->denominator = 1;
 		return true;
 	}
-	unsigned int divisor = gcd(fraction->numerator, fraction->denominator);
+	unsigned int divisor = gcd(f->numerator, f->denominator);
 	if (divisor == 1) {
 		return false;
 	} else {
-		fraction->numerator /= divisor;
-		fraction->denominator /= divisor;
+		f->numerator /= divisor;
+		f->denominator /= divisor;
 		return true;
 	}
 }
@@ -193,9 +193,9 @@ invert_fraction(const fraction *const input_frac, fraction *const result)
  * @return A character representing the sign of the fraction.
  */
 char
-fraction_sign_as_character(const fraction *const fraction)
+fraction_sign_as_character(const fraction *const f)
 {
-	return fraction->negative ? '-' : '+';
+	return f->negative ? '-' : '+';
 }
 
 void
