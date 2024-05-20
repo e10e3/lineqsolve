@@ -293,11 +293,11 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
  * @return The ending status of the program.
  */
 int
-main(const int argc, char *const argv[])
+main(const int argc, const char *const argv[])
 {
 	int number_variables = 0;
 	fraction **values_matrix = {0};
-	char *input_filename = "";
+	const char *input_filename = "";
 
 	if (argc == 0) {
 		fprintf(stderr,
