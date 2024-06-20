@@ -25,7 +25,7 @@
  *
  * @return The GCD of its inputs.
  */
-unsigned int
+static unsigned int
 gcd(unsigned int a, unsigned int b)
 {
 	while (b != 0) {
