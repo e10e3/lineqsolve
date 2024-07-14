@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void test_substraction();
-void test_simplification();
-void test_multiplication();
+void test_substraction(void);
+void test_simplification(void);
+void test_multiplication(void);
 void test_comparison(void);
 
 int
-main()
+main(void)
 {
 	test_comparison();
 	test_substraction();
@@ -21,7 +21,7 @@ main()
 }
 
 void
-test_substraction()
+test_substraction(void)
 {
 	{
 		/* Standard substraction */
@@ -71,7 +71,7 @@ test_substraction()
 }
 
 void
-test_simplification()
+test_simplification(void)
 {
 	{
 		/* Multiples */
@@ -90,7 +90,7 @@ test_simplification()
 }
 
 void
-test_multiplication()
+test_multiplication(void)
 {
 	{
 		/* Regular, same denominator, no simplification */
