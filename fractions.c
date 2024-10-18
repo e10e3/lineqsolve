@@ -88,10 +88,19 @@ substract_fractions(const fraction *const fraction1,
 		wide_result = wide_num1 - wide_num2;
 		result->denominator = fraction1->denominator;
 	} else {
-		wide_result = wide_num1 * fraction2->denominator -
-		              wide_num2 * fraction1->denominator;
-		result->denominator =
-		    fraction1->denominator * fraction2->denominator;
+		/*
+		 * Divide by the LCM (least common multiple) to reduce the
+		 * magnitude of the values and have less integer overflows.
+		 * Integer division can be done without loss of precision
+		 * because the dividend is always a multiple of the divisor,
+		 * by construction.
+		 */
+		long lcm = (long int)fraction1->denominator /
+		           gcd(fraction1->denominator, fraction2->denominator) *
+		           fraction2->denominator;
+		wide_result = wide_num1 * (lcm / fraction1->denominator) -
+		              wide_num2 * (lcm / fraction2->denominator);
+		result->denominator = (unsigned int)lcm;
 	}
 	result->negative = (wide_result < 0);
 	/* This should always be true, but the compiler needs convincing */

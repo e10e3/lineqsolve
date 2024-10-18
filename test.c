@@ -68,6 +68,15 @@ test_substraction(void)
 		fraction theorical = {1, 2, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
+	{
+		/* Substracting a small number to a big one */
+		fraction frac1 = {0, 65536, 2};
+		fraction frac2 = {0, 1, 65538};
+		fraction result = {0};
+		substract_fractions(&frac1, &frac2, &result);
+		fraction theorical = {0, 2147549183, 65538};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
 }
 
 void
