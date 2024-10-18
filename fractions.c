@@ -119,8 +119,8 @@ substract_fractions(const fraction *const fraction1,
 int
 compare_fractions(const fraction *const f_a, const fraction *const f_b)
 {
-	long left_side = f_a->numerator * f_b->denominator;
-	long right_side = f_b->numerator * f_a->denominator;
+	unsigned long left_side = (unsigned long)f_a->numerator * f_b->denominator;
+	unsigned long right_side = (unsigned long)f_b->numerator * f_a->denominator;
 	if (f_a->negative == 0 && f_b->negative == 0) {
 		return (left_side < right_side) ? -1 : (left_side > right_side);
 	} else if (f_a->negative == 1 && f_b->negative == 1) {
