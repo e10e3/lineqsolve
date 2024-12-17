@@ -112,6 +112,7 @@ test_multiplication(void)
 	}
 	{
 		/* Division */
+		/* Multiplying by 1/2 is the same as dividing by 2. */
 		fraction frac1 = {0, 1, 2};
 		fraction frac2 = {0, 4, 1};
 		fraction result = {0};
@@ -144,6 +145,24 @@ test_multiplication(void)
 		fraction result = {0};
 		multiply_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 20, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Identity */
+		fraction frac1 = {0, 29, 53};
+		fraction frac2 = {0, 1, 1};
+		fraction result = {0};
+		multiply_fractions(&frac1, &frac2, &result);
+		fraction theorical = {0, 29, 53};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Opposite */
+		fraction frac1 = {0, 131, 97};
+		fraction frac2 = {1, 1, 1};
+		fraction result = {0};
+		multiply_fractions(&frac1, &frac2, &result);
+		fraction theorical = {1, 131, 97};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 }
