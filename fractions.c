@@ -25,11 +25,11 @@
  *
  * @return The GCD of its inputs.
  */
-static unsigned int
-gcd(unsigned int a, unsigned int b)
+static uint32_t
+gcd(uint32_t a, uint32_t b)
 {
 	while (b != 0) {
-		unsigned int t = b;
+		uint32_t t = b;
 		b = a % b;
 		a = t;
 	}
@@ -72,18 +72,18 @@ multiply_fractions(const fraction *const fraction_in1,
  * @param[out] result Where to store the substration's result.
  */
 /*
- * Using longs and downcasting seemed a quite good option to me, no overflow to
- * care about.
+ * Using 64-bit integers and downcasting seemed a quite good option to me, no
+ * overflow to care about.
  */
 void
 substract_fractions(const fraction *const fraction1,
                     const fraction *const fraction2, fraction *const result)
 {
-	long int wide_num1 =
-	    (long int)fraction1->numerator * (fraction1->negative ? -1 : 1);
-	long int wide_num2 =
-	    (long int)fraction2->numerator * (fraction2->negative ? -1 : 1);
-	long int wide_result = 0;
+	int64_t wide_num1 =
+	    (int64_t)fraction1->numerator * (fraction1->negative ? -1 : 1);
+	int64_t wide_num2 =
+	    (int64_t)fraction2->numerator * (fraction2->negative ? -1 : 1);
+	int64_t wide_result = 0;
 	if (fraction1->denominator == fraction2->denominator) {
 		wide_result = wide_num1 - wide_num2;
 		result->denominator = fraction1->denominator;
@@ -95,19 +95,20 @@ substract_fractions(const fraction *const fraction1,
 		 * because the dividend is always a multiple of the divisor,
 		 * by construction.
 		 */
-		long lcm = (long int)fraction1->denominator /
-		           gcd(fraction1->denominator, fraction2->denominator) *
-		           fraction2->denominator;
+		int64_t lcm =
+		    (int64_t)fraction1->denominator /
+		    gcd(fraction1->denominator, fraction2->denominator) *
+		    fraction2->denominator;
 		wide_result = wide_num1 * (lcm / fraction1->denominator) -
 		              wide_num2 * (lcm / fraction2->denominator);
-		result->denominator = (unsigned int)lcm;
+		result->denominator = (uint32_t)lcm;
 	}
 	result->negative = (wide_result < 0);
 	/* This should always be true, but the compiler needs convincing */
-	assert(wide_result < (long)UINT_MAX ||
-	       wide_result > (long)UINT_MAX * -1);
+	assert(wide_result < (int64_t)UINT_MAX ||
+	       wide_result > (int64_t)UINT_MAX * -1);
 	result->numerator =
-	    (unsigned int)(wide_result < 0 ? -wide_result : wide_result);
+	    (uint32_t)(wide_result < 0 ? -wide_result : wide_result);
 	simplify_fraction(result);
 }
 
@@ -128,8 +129,8 @@ substract_fractions(const fraction *const fraction1,
 int
 compare_fractions(const fraction *const f_a, const fraction *const f_b)
 {
-	unsigned long left_side = (unsigned long)f_a->numerator * f_b->denominator;
-	unsigned long right_side = (unsigned long)f_b->numerator * f_a->denominator;
+	uint64_t left_side = (uint64_t)f_a->numerator * f_b->denominator;
+	uint64_t right_side = (uint64_t)f_b->numerator * f_a->denominator;
 	if (f_a->negative == 0 && f_b->negative == 0) {
 		return (left_side < right_side) ? -1 : (left_side > right_side);
 	} else if (f_a->negative == 1 && f_b->negative == 1) {
@@ -162,7 +163,7 @@ simplify_fraction(fraction *const f)
 		f->denominator = 1;
 		return true;
 	}
-	unsigned int divisor = gcd(f->numerator, f->denominator);
+	uint32_t divisor = gcd(f->numerator, f->denominator);
 	if (divisor == 1) {
 		return false;
 	} else {
@@ -208,7 +209,7 @@ fraction_sign_as_character(const fraction *const f)
 }
 
 void
-fraction_from_int(int input, fraction *const output)
+fraction_from_int(int32_t input, fraction *const output)
 {
 	output->denominator = 1;
 	if (input < 0) {

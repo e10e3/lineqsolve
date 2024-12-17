@@ -31,16 +31,16 @@
  *
  * @return The number of matches.
  */
-int
+size_t
 count_char_in_string(const char to_search, const char *string)
 {
-	int count = 0;
+	size_t count = 0;
 	while (*string != '\0') {
 		if (*string == to_search) {
 			count++;
 		}
 		string++;
-		if (count == INT_MAX) {
+		if (count == SIZE_MAX) {
 			/* The end of the string has been overshot, something
 			 * went wrong */
 			return 0;
@@ -60,7 +60,7 @@ count_char_in_string(const char to_search, const char *string)
  * @param[in] n_col The number of columns of the matrix.
  */
 void
-pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
+pp_matrix(fraction **const matrix, const size_t n_lines, const size_t n_col)
 {
 	/*
 	 * The matrix is pretty-printed with brackets represented either
@@ -68,7 +68,7 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 	 * slashes and vertical bars for multi-line matrixes.
 	 */
 	printf("\n");
-	for (int i = 0; i < n_lines; i++) {
+	for (size_t i = 0; i < n_lines; i++) {
 		if (i == 0) {
 			printf("⎛");
 		} else if (i == n_lines - 1) {
@@ -77,7 +77,7 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
 			printf("⎜");
 		}
 
-		for (int j = 0; j < n_col; j++) {
+		for (size_t j = 0; j < n_col; j++) {
 			printf("%c%u/%u",
 			       fraction_sign_as_character(&matrix[i][j]),
 			       matrix[i][j].numerator,
@@ -107,14 +107,14 @@ pp_matrix(fraction **const matrix, const int n_lines, const int n_col)
  *
  * @return The line number of the column's greatest item.
  */
-int
-find_greatest_value_in_column(fraction **const matrix, const int column,
-                              const int n_lines)
+size_t
+find_greatest_value_in_column(fraction **const matrix, const size_t column,
+                              const size_t n_lines)
 {
 	/* Start with the smallest possible value */
-	fraction current_max_val = {0, INT_MIN, 1};
-	int current_max_index = 0;
-	for (int i = 0; i < n_lines; i++) {
+	fraction current_max_val = {true, UINT32_MAX, 1};
+	size_t current_max_index = 0;
+	for (size_t i = 0; i < n_lines; i++) {
 		if (compare_fractions(&matrix[i][column], &current_max_val) ==
 		    1) {
 			current_max_val = matrix[i][column];
@@ -137,9 +137,9 @@ find_greatest_value_in_column(fraction **const matrix, const int column,
  */
 void
 substract_lines_in_place(fraction *const line1, fraction *const line2,
-                         const int n_col)
+                         const size_t n_col)
 {
-	for (int i = 0; i < n_col; i++) {
+	for (size_t i = 0; i < n_col; i++) {
 		substract_fractions(line1 + i, line2 + i, &line1[i]);
 	}
 }
@@ -155,9 +155,9 @@ substract_lines_in_place(fraction *const line1, fraction *const line2,
  */
 void
 multiply_line_in_place(fraction *const line, const fraction factor,
-                       const int n_col)
+                       const size_t n_col)
 {
-	for (int i = 0; i < n_col; i++) {
+	for (size_t i = 0; i < n_col; i++) {
 		multiply_fractions(line + i, &factor, &line[i]);
 	}
 }
@@ -173,13 +173,13 @@ multiply_line_in_place(fraction *const line, const fraction factor,
  * @param[in] n_col The number of columns in the matrix.
  */
 void
-triangularise(fraction **const matrix, const int n_lines, const int n_col)
+triangularise(fraction **const matrix, const size_t n_lines, const size_t n_col)
 {
 	/* For each step, the pivot is in position (i, i) */
-	for (int i = 0; i < n_lines; i++) {
+	for (size_t i = 0; i < n_lines; i++) {
 		/* Make the line with the biggest value of the
 		 * column the pivot line */
-		int line_pivot =
+		size_t line_pivot =
 		    find_greatest_value_in_column(matrix, i, n_lines);
 		if (line_pivot > i) {
 			/* Make the greatest value the pivot, for greater
@@ -196,7 +196,7 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
 		if (substracted_line == NULL) {
 			exit(EXIT_FAILURE);
 		}
-		for (int j = 0; j < n_lines; j++) {
+		for (size_t j = 0; j < n_lines; j++) {
 			if (j == i) {
 				/* This is the pivot */
 				continue;
@@ -231,7 +231,7 @@ triangularise(fraction **const matrix, const int n_lines, const int n_col)
  * @param[in] n_col The number of columns in the matrix.
  */
 void
-diagonalise(fraction **const matrix, const int n_lines, const int n_col)
+diagonalise(fraction **const matrix, const size_t n_lines, const size_t n_col)
 {
 }
 
@@ -247,8 +247,8 @@ diagonalise(fraction **const matrix, const int n_lines, const int n_col)
  * @param[in] n_col The number of columns in the matrix.
  */
 void
-gaussian_elimination(fraction **const matrix, const int n_lines,
-                     const int n_col)
+gaussian_elimination(fraction **const matrix, const size_t n_lines,
+                     const size_t n_col)
 {
 	triangularise(matrix, n_lines, n_col);
 	diagonalise(matrix, n_lines, n_col);
@@ -263,9 +263,9 @@ gaussian_elimination(fraction **const matrix, const int n_lines,
  * @param[in] n_col The number of columns in the matrix.
  */
 void
-print_results(fraction **const matrix, const int n_lines, const int n_col)
+print_results(fraction **const matrix, const size_t n_lines, const size_t n_col)
 {
-	for (int i = 0; i < n_lines; i++) {
+	for (size_t i = 0; i < n_lines; i++) {
 		fraction inverted_pivot = {0};
 		invert_fraction(&matrix[i][i], &inverted_pivot);
 		fraction var_i_val = {0};
@@ -274,7 +274,7 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
 		float var_i_approx = var_i_val.numerator *
 		                     (var_i_val.negative ? -1.0 : 1.0) /
 		                     var_i_val.denominator;
-		printf("The value of the variable %d is: %g (%c%u/%u).\n",
+		printf("The value of the variable %zu is: %g (%c%u/%u).\n",
 		       i + 1, var_i_approx,
 		       fraction_sign_as_character(&var_i_val),
 		       var_i_val.numerator, var_i_val.denominator);
@@ -294,7 +294,7 @@ print_results(fraction **const matrix, const int n_lines, const int n_col)
 int
 main(const int argc, const char *const argv[])
 {
-	int number_variables = 0;
+	size_t number_variables = 0;
 	fraction **values_matrix = {0};
 	const char *input_filename = "";
 
@@ -334,14 +334,14 @@ main(const int argc, const char *const argv[])
 		       "solved.\n");
 		exit(EXIT_SUCCESS);
 	}
-	fprintf(stderr, "This system has %d variables.\n", number_variables);
+	fprintf(stderr, "This system has %zu variables.\n", number_variables);
 
 	values_matrix = calloc(number_variables, sizeof(fraction *));
 	if (values_matrix == NULL) {
 		fprintf(stderr, "ERROR: the memory was not allocated.\n");
 		exit(EXIT_FAILURE);
 	}
-	for (int i = 0; i < number_variables; i++) {
+	for (size_t i = 0; i < number_variables; i++) {
 		/* n variables + result */
 		values_matrix[i] =
 		    calloc(number_variables + 1, sizeof(fraction));
@@ -352,9 +352,9 @@ main(const int argc, const char *const argv[])
 		}
 	}
 
-	for (int i = 0; i < number_variables; i++) {
-		for (int j = 0; j < (number_variables + 1); j++) {
-			int input_coefficient = 0;
+	for (size_t i = 0; i < number_variables; i++) {
+		for (size_t j = 0; j < (number_variables + 1); j++) {
+			int32_t input_coefficient = 0;
 			fscanf(input, "%d", &input_coefficient);
 			fraction_from_int(input_coefficient,
 			                  &values_matrix[i][j]);
@@ -373,7 +373,7 @@ main(const int argc, const char *const argv[])
 
 	print_results(values_matrix, number_variables, number_variables + 1);
 
-	for (int i = 0; i < number_variables; i++) {
+	for (size_t i = 0; i < number_variables; i++) {
 		free(values_matrix[i]);
 	}
 	free(values_matrix);

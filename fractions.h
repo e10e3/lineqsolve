@@ -8,6 +8,7 @@
 #define FRACTIONS_H
 
 #include <stdbool.h>
+#include <stdint.h>
 
 /**
  * @brief A structure to store fractions.
@@ -28,9 +29,9 @@ struct fraction {
 	 */
 	bool negative;
 	/** The numerator of the fraction */
-	unsigned int numerator;
+	uint32_t numerator;
 	/** The denominator of the fraction */
-	unsigned int denominator;
+	uint32_t denominator;
 };
 
 /**
@@ -47,6 +48,6 @@ int compare_fractions(const fraction *const, const fraction *const);
 bool simplify_fraction(fraction *const);
 void invert_fraction(const fraction *const, fraction *const);
 char fraction_sign_as_character(const fraction *const);
-void fraction_from_int(int, fraction *const);
+void fraction_from_int(int32_t, fraction *const);
 
 #endif /* FRACTIONS_H */
