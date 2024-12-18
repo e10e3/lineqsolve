@@ -59,25 +59,25 @@ multiply_fractions(const fraction *const fraction_in1,
 }
 
 /**
- * @brief Substract a fraction to another.
+ * @brief Subtract a fraction to another.
  *
  * Performs `fraction1` - `fraction2`.
  *
- * The result of the substration is stored in simplified form.
+ * The result of the subtraction is stored in simplified form.
  *
- * @param[in] fraction1 The substraction's first termi (the fraction being
- * substracted from).
- * @param[in] fraction2 The substraction's second term (the fraction being
- * substracted).
- * @param[out] result Where to store the substration's result.
+ * @param[in] fraction1 The subtraction's first term (the fraction being
+ * subtracted from).
+ * @param[in] fraction2 The subtraction's second term (the fraction being
+ * subtracted).
+ * @param[out] result Where to store the subtraction's result.
  */
 /*
  * Using 64-bit integers and downcasting seemed a quite good option to me, no
  * overflow to care about.
  */
 void
-substract_fractions(const fraction *const fraction1,
-                    const fraction *const fraction2, fraction *const result)
+subtract_fractions(const fraction *const fraction1,
+                   const fraction *const fraction2, fraction *const result)
 {
 	int64_t wide_num1 =
 	    (int64_t)fraction1->numerator * (fraction1->negative ? -1 : 1);

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void test_substraction(void);
+void test_subtraction(void);
 void test_simplification(void);
 void test_multiplication(void);
 void test_comparison(void);
@@ -13,7 +13,7 @@ int
 main(void)
 {
 	test_comparison();
-	test_substraction();
+	test_subtraction();
 	test_simplification();
 	test_multiplication();
 	printf("All good.\n");
@@ -21,59 +21,59 @@ main(void)
 }
 
 void
-test_substraction(void)
+test_subtraction(void)
 {
 	{
-		/* Standard substraction */
+		/* Standard subtraction */
 		fraction frac1 = {0, 8, 3};
 		fraction frac2 = {0, 4, 2};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 2, 3};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Substracting zero */
+		/* Subtracting zero */
 		fraction frac1 = {0, 2, 7};
 		fraction frac2 = {0, 0, 5};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 2, 7};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Substracting whole numbers */
+		/* Subtracting whole numbers */
 		fraction frac1 = {0, 18, 1};
 		fraction frac2 = {0, 5, 1};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 13, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Substracting a negative number */
+		/* Subtracting a negative number */
 		fraction frac1 = {0, 3, 1};
 		fraction frac2 = {1, 2, 1};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 5, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Substracting a bigger number */
+		/* Subtracting a bigger number */
 		fraction frac1 = {0, 5, 1};
 		fraction frac2 = {0, 7, 1};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {1, 2, 1};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
 	{
-		/* Substracting a small number to a big one */
+		/* Subtracting a small number to a big one */
 		fraction frac1 = {0, 65536, 2};
 		fraction frac2 = {0, 1, 65538};
 		fraction result = {0};
-		substract_fractions(&frac1, &frac2, &result);
+		subtract_fractions(&frac1, &frac2, &result);
 		fraction theorical = {0, 2147549183, 65538};
 		assert(compare_fractions(&result, &theorical) == 0);
 	}
@@ -168,7 +168,8 @@ test_multiplication(void)
 }
 
 void
-test_comparison(void) {
+test_comparison(void)
+{
 	{
 		/* Same fraction */
 		fraction frac1 = {0, 2, 1};

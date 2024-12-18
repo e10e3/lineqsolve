@@ -42,8 +42,8 @@ typedef struct fraction fraction;
 
 void multiply_fractions(const fraction *const, const fraction *const,
                         fraction *const);
-void substract_fractions(const fraction *const, const fraction *const,
-                         fraction *const);
+void subtract_fractions(const fraction *const, const fraction *const,
+                        fraction *const);
 int compare_fractions(const fraction *const, const fraction *const);
 bool simplify_fraction(fraction *const);
 void invert_fraction(const fraction *const, fraction *const);

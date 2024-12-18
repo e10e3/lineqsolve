@@ -125,22 +125,22 @@ find_greatest_value_in_column(fraction **const matrix, const size_t column,
 }
 
 /**
- * @brief Substract two matrix lines in places
+ * @brief Subtract two matrix lines in places
  *
  * Piece-wise removes the value in line2 from line1, and stores the result in
  * line1.
  *
- * @param[in, out] line1 Pointer to the first item of the line being substracted
+ * @param[in, out] line1 Pointer to the first item of the line being subtracted
  * from.
- * @param[in] line2 Pointer to the line being substracted.
+ * @param[in] line2 Pointer to the line being subtracted.
  * @param[in] n_col The number of columns in the matrix.
  */
 void
-substract_lines_in_place(fraction *const line1, fraction *const line2,
-                         const size_t n_col)
+subtract_lines_in_place(fraction *const line1, fraction *const line2,
+                        const size_t n_col)
 {
 	for (size_t i = 0; i < n_col; i++) {
-		substract_fractions(line1 + i, line2 + i, &line1[i]);
+		subtract_fractions(line1 + i, line2 + i, &line1[i]);
 	}
 }
 
@@ -192,8 +192,8 @@ triangularise(fraction **const matrix, const size_t n_lines, const size_t n_col)
 		fraction inverse_of_pivot = {0};
 		invert_fraction(&matrix[i][i], &inverse_of_pivot);
 
-		fraction *substracted_line = calloc(n_col, sizeof(fraction));
-		if (substracted_line == NULL) {
+		fraction *subtracted_line = calloc(n_col, sizeof(fraction));
+		if (subtracted_line == NULL) {
 			exit(EXIT_FAILURE);
 		}
 		for (size_t j = 0; j < n_lines; j++) {
@@ -206,15 +206,15 @@ triangularise(fraction **const matrix, const size_t n_lines, const size_t n_col)
 			multiply_fractions(&matrix[j][i], &inverse_of_pivot,
 			                   &simplification_factor);
 			/* Pre-multiply (a copy of!) the pivot's line */
-			substracted_line = memcpy(substracted_line, matrix[i],
-			                          n_col * sizeof(fraction));
-			multiply_line_in_place(substracted_line,
+			subtracted_line = memcpy(subtracted_line, matrix[i],
+			                         n_col * sizeof(fraction));
+			multiply_line_in_place(subtracted_line,
 			                       simplification_factor, n_col);
-			/* Substract the lines */
-			substract_lines_in_place(matrix[j], substracted_line,
-			                         n_col);
+			/* Subtract the lines */
+			subtract_lines_in_place(matrix[j], subtracted_line,
+			                        n_col);
 		}
-		free(substracted_line);
+		free(subtracted_line);
 	}
 }
 
