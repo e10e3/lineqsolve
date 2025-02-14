@@ -208,13 +208,27 @@ fraction_sign_as_character(const fraction *const f)
 	return f->negative ? '-' : '+';
 }
 
+/**
+ * @todo
+ */
 void
 fraction_from_int(int32_t input, fraction *const output)
 {
 	output->denominator = 1;
 	if (input < 0) {
 		output->negative = true;
-		output->numerator = -input;
+		/*
+		 * We want to get the opposite of the negative 32-bit numbers.
+		 * The target is an unsigned number, meaning we need to do the
+		 * sign inversion in the original, signed number space. Most
+		 * values have a direct opposite defined, but -2^31 does not:
+		 * INT32_MAX is 2^31-1. To go around this limitation without
+		 * overflowing, we add 1 to the number, invert the sign, convert
+		 * it to an unsigned number, and add 1 again. The calculation
+		 * ends up being $-input - 1 + 1$, which cancels out. This maps
+		 * all int32_t values to an uint32_t.
+		 */
+		output->numerator = (uint32_t)(-(input + 1)) + 1;
 	} else {
 		output->negative = false;
 		output->numerator = input;

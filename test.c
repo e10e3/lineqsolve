@@ -8,6 +8,7 @@ void test_subtraction(void);
 void test_simplification(void);
 void test_multiplication(void);
 void test_comparison(void);
+void test_conversion(void);
 
 int
 main(void)
@@ -16,6 +17,7 @@ main(void)
 	test_subtraction();
 	test_simplification();
 	test_multiplication();
+	test_conversion();
 	printf("All good.\n");
 	return EXIT_SUCCESS;
 }
@@ -192,5 +194,66 @@ test_comparison(void)
 		fraction frac1 = {1, 6, 4};
 		fraction frac2 = {0, 9, 7};
 		assert(compare_fractions(&frac1, &frac2) == -1);
+	}
+}
+
+void
+test_conversion(void)
+{
+	{
+		/* Zero */
+		int32_t number = 0;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {0, 0, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Small integer */
+		int32_t number = 1;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {0, 1, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Other integer */
+		int32_t number = 59;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {0, 59, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Negative integer */
+		int32_t number = -1;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {1, 1, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Other negative integer */
+		int32_t number = -99;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {1, 99, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Largest integer */
+		int32_t number = 2147483647;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {0, 2147483647, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
+	}
+	{
+		/* Largest negative integer */
+		int32_t number = -2147483648;
+		fraction result = {0};
+		fraction_from_int(number, &result);
+		fraction theorical = {1, 2147483648, 1};
+		assert(compare_fractions(&result, &theorical) == 0);
 	}
 }
