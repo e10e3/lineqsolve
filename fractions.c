@@ -149,7 +149,7 @@ compare_fractions(const fraction *const f_a, const fraction *const f_b)
  * are relatively primes), it is not simplified further and the function
  * returns false.
  *
- * @param [in,out] fraction The fraction of simplify.
+ * @param [in,out] f The fraction to simplify.
  *
  * @return Whether the fraction was simplified.
  */
@@ -198,7 +198,7 @@ invert_fraction(const fraction *const input_frac, fraction *const result)
  *
  * The character is '+' if the fraction is positive, and '-' if it is negative.
  *
- * @param[in] fraction The fraction to describe.
+ * @param[in] f The fraction to describe.
  *
  * @return A character representing the sign of the fraction.
  */
@@ -209,7 +209,10 @@ fraction_sign_as_character(const fraction *const f)
 }
 
 /**
- * @todo
+ * @brief Convert an integer to an equivalent fraction.
+ *
+ * @param[in] input The value to represent as a fraction.
+ * @param[out] output The faction to initialise.
  */
 void
 fraction_from_int(int32_t input, fraction *const output)
