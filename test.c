@@ -92,10 +92,17 @@ test_simplification(void)
 		assert(compare_fractions(&frac1, &theorical) == 0);
 	}
 	{
-		/* Unit fraction */
+		/* Negative unit fraction */
 		fraction frac1 = {1, 5, 5};
 		simplify_fraction(&frac1);
 		fraction theorical = {1, 1, 1};
+		assert(compare_fractions(&frac1, &theorical) == 0);
+	}
+	{
+		/* Zero */
+		fraction frac1 = {1, 0, 19};
+		simplify_fraction(&frac1);
+		fraction theorical = {0, 0, 1};
 		assert(compare_fractions(&frac1, &theorical) == 0);
 	}
 }
